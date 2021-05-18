@@ -1,51 +1,33 @@
-import React, { useState } from "react";
-import { AdminTable } from "./Components/AdminTable";
-import { AdminRecord } from "./Components/AdminRecord";
+import React, { useState, useEffect } from "react";
 import { MainSideBar } from "../../MainSideBar/MainSideBar";
+import { CouponTable } from "./Components/CouponTable";
+import { CouponRecord } from "./Components/CouponRecord";
 import { NavBar } from "../../NavBar/NavBar";
+import filmsApi from "../../../api/filmsApi";
+import { ToastContainer } from "react-toastify";
 
-const data_users_fixed = [
-    {
-        id: 1,
-        firstName: "Admin",
-        lastName: "Admin",
-        email: "amdin@gmail.com",
-        phone: "1234567890",
-        isDeleted: 0,
-    },
-    {
-        id: 2,
-        firstName: "Ha",
-        lastName: "Nguyen",
-        email: "nguyenha993@gmail.com",
-        phone: "1234567890",
-        isDeleted: 1,
-    },
-    {
-        id: 3,
-        firstName: "A",
-        lastName: "Nguyen",
-        email: "test@gmail.com",
-        phone: "1234567890",
-        isDeleted: 0,
-    },
-];
-
-export const Admin = () => {
+export const Coupon = () => {
     const [isOpenRecord, setIsOpenRecord] = useState(false);
+    const [listCoupons, setListCoupons] = useState([]);
+    const [listFilms, setListFilms] = useState();
 
-    // const getAdmin = async () => {
-    //     try {
-    //         const res = await usersApi.getAll();
-    //         console.log(res);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+    const getCoupons = async () => {
+        try {
+            const res = await filmsApi.getCoupons();
+            setListCoupons(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    // useEffect(() => {
-    //     getAdmin();
-    // }, []);
+    const getListFilms = async () => {
+        try {
+            const res = await filmsApi.getFilms();
+            setListFilms(res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const onGoBack = () => {
         if (isOpenRecord) {
@@ -53,17 +35,21 @@ export const Admin = () => {
         }
     };
 
+    useEffect(() => {
+        getCoupons();
+        getListFilms();
+    }, []);
+
     return (
         <>
             <MainSideBar />
             <NavBar />
             <div className="content-wrapper">
-                {/* Content Header (Page header) */}
                 <section className="content-header">
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h1>Admin</h1>
+                                <h1>Mã giảm giá</h1>
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
@@ -71,13 +57,12 @@ export const Admin = () => {
                                         <div>Home</div>
                                     </li>
                                     <li className="breadcrumb-item active">
-                                        Admin
+                                        Mã giảm giá
                                     </li>
                                 </ol>
                             </div>
                         </div>
                     </div>
-                    {/* /.container-fluid */}
                 </section>
                 {!isOpenRecord ? (
                     <>
@@ -97,25 +82,25 @@ export const Admin = () => {
                                         <div className="card">
                                             <div className="card-header">
                                                 <h3 className="card-title">
-                                                    Danh sách admin
+                                                    Danh sách khuyến mại
                                                 </h3>
                                             </div>
-                                            <AdminTable
-                                                usersData={data_users_fixed}
+                                            <CouponTable
+                                                coupons={listCoupons}
+                                                listFilms={listFilms}
+                                                getCoupons={getCoupons}
                                             />
                                         </div>
                                     </div>
-                                    {/* /.col */}
                                 </div>
-                                {/* /.row */}
                             </div>
                         </section>
                     </>
                 ) : (
-                    <AdminRecord onGoBack={onGoBack} />
+                    <CouponRecord onGoBack={onGoBack} getCoupons={getCoupons} />
                 )}
-                {/* /.content */}
             </div>
+            <ToastContainer />
         </>
     );
 };

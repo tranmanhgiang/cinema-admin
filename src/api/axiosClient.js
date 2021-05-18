@@ -13,6 +13,12 @@ const axiosLoginClient = axios.create({
 });
 axiosLoginClient.interceptors.request.use(async (config) => {
     // Handle token here ...
+    let token = null;
+    token = localStorage.getItem("accessToken");
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+        config.headers['Authorization-Token'] = token;
+    }
     return config;
 });
 axiosLoginClient.interceptors.response.use(

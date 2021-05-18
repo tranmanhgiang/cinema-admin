@@ -12,7 +12,10 @@ export const Dashboard = () => {
         totalTicketOrder: 0,
         totalMember: 0
     });
-    const [totalRevenue, setTotalRevenue] = useState();
+    const [totalRevenue, setTotalRevenue] = useState({
+        totalRevenue: 0,
+        online: 0,
+    });
 
     const getOverView = async () => {
         try {
@@ -30,6 +33,10 @@ export const Dashboard = () => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const formatCurrency = (currency) => {
+        return String(currency).replace(/(.)(?=(\d{3})+$)/g,'$1.');
     }
 
     useEffect(() => {
@@ -292,7 +299,7 @@ export const Dashboard = () => {
                                                         100%
                                                     </span>
                                                     <h5 className="description-header">
-                                                        {totalRevenue.totalRevenue} vnđ
+                                                        {formatCurrency(parseInt(totalRevenue.totalRevenue))} vnđ
                                                     </h5>
                                                     <span className="description-text">
                                                         Tổng doanh thu
@@ -306,7 +313,7 @@ export const Dashboard = () => {
                                                         {(parseInt(totalRevenue.online)/parseInt(totalRevenue.totalRevenue) * 100).toFixed(2)} %
                                                     </span>
                                                     <h5 className="description-header">
-                                                        {totalRevenue.online} vnđ
+                                                        {formatCurrency(parseInt(totalRevenue.online))} vnđ
                                                     </h5>
                                                     <span className="description-text">
                                                         Bán online
@@ -320,7 +327,7 @@ export const Dashboard = () => {
                                                         {((parseInt(totalRevenue.totalRevenue) - parseInt(totalRevenue.online))/parseInt(totalRevenue.totalRevenue) * 100).toFixed(2)} %
                                                     </span>
                                                     <h5 className="description-header">
-                                                        {parseInt(totalRevenue.totalRevenue) - parseInt(totalRevenue.online)} vnđ
+                                                        {formatCurrency(parseInt(totalRevenue.totalRevenue) - parseInt(totalRevenue.online))} vnđ
                                                     </h5>
                                                     <span className="description-text">
                                                         Bán tại quầy

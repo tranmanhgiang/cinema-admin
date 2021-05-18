@@ -3,23 +3,25 @@ import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./LoginStyles.scss";
+import authApi from "../../api/authApi";
 
 export const Login = () => {
     const history = useHistory();
     const [adminField, setAdminField] = useState({ email: "", password: "" });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("adminField: ", adminField);
-        if (
-            adminField.email === "admin@gmail.com" &&
-            adminField.password === "123"
-        ) {
-            localStorage.setItem("accessToken", true);
-            // toast.success("Đăng nhập thành công");
+        try {
+            const res = await authApi.login({
+                email: adminField.email,
+                password: adminField.password,
+            });
+            console.log(res);
+            localStorage.setItem("accessToken", res.Token);
             history.replace("/dashboard");
             toast.success("Đăng nhập thành công");
-        } else {
+        } catch (err) {
+            console.log(err);
             toast.error("Email hoặc mật khẩu không chính xác");
         }
     };

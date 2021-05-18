@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 export const MainSideBar = () => {
     return (
-        <aside className="main-sidebar sidebar-dark-primary elevation-4">
+        <aside className="main-sidebar">
             {/* Brand Logo */}
             <a href="index3.html" className="brand-link">
                 <img
@@ -63,12 +63,12 @@ export const MainSideBar = () => {
                             </NavLink>
                         </li>
                         <li className="nav-header">NGƯỜI DÙNG</li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink to="/admin" className="nav-link">
                                 <i className="nav-icon fas fa-user" />
                                 <p>Admin</p>
                             </NavLink>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <NavLink to="/users" className="nav-link">
                                 <i className="nav-icon fas fa-users" />
@@ -105,30 +105,20 @@ export const MainSideBar = () => {
                                 <p>Vé đã đặt</p>
                             </NavLink>
                         </li>
-                        {/* <li className="nav-header">EXAMPLES</li>
+                        <li className="nav-header">GIẢM GIÁ</li>
                         <li className="nav-item">
-                            <a href="pages/calendar.html" className="nav-link">
-                                <i className="nav-icon far fa-calendar-alt" />
-                                <p>
-                                    Calendar
-                                    <span className="badge badge-info right">
-                                        2
-                                    </span>
-                                </p>
-                            </a>
+                            <NavLink to="/coupon" className="nav-link">
+                                <i class="nav-icon fab fa-cuttlefish"></i>
+                                <p>Mã giảm giá</p>
+                            </NavLink>
                         </li>
+                        <li className="nav-header">BỎNG & NƯỚC</li>
                         <li className="nav-item">
-                            <a href="pages/gallery.html" className="nav-link">
-                                <i className="nav-icon far fa-image" />
-                                <p>Gallery</p>
-                            </a>
+                            <NavLink to="/popcorn" className="nav-link">
+                                <i class="nav-icon fab fa-cuttlefish"></i>
+                                <p>Bỏng nước</p>
+                            </NavLink>
                         </li>
-                        <li className="nav-item">
-                            <a href="pages/kanban.html" className="nav-link">
-                                <i className="nav-icon fas fa-columns" />
-                                <p>Kanban Board</p>
-                            </a>
-                        </li> */}
                     </ul>
                 </nav>
                 {/* /.sidebar-menu */}

@@ -1,51 +1,23 @@
-import React, { useState } from "react";
-import { AdminTable } from "./Components/AdminTable";
-import { AdminRecord } from "./Components/AdminRecord";
+import React, { useState, useEffect } from "react";
 import { MainSideBar } from "../../MainSideBar/MainSideBar";
+import { PopcornTable } from "./Components/PopcornTable";
+import { PopcornRecord } from "./Components/PopcornRecord";
 import { NavBar } from "../../NavBar/NavBar";
+import filmsApi from "../../../api/filmsApi";
+import { ToastContainer } from "react-toastify";
 
-const data_users_fixed = [
-    {
-        id: 1,
-        firstName: "Admin",
-        lastName: "Admin",
-        email: "amdin@gmail.com",
-        phone: "1234567890",
-        isDeleted: 0,
-    },
-    {
-        id: 2,
-        firstName: "Ha",
-        lastName: "Nguyen",
-        email: "nguyenha993@gmail.com",
-        phone: "1234567890",
-        isDeleted: 1,
-    },
-    {
-        id: 3,
-        firstName: "A",
-        lastName: "Nguyen",
-        email: "test@gmail.com",
-        phone: "1234567890",
-        isDeleted: 0,
-    },
-];
-
-export const Admin = () => {
+export const Popcorn = () => {
     const [isOpenRecord, setIsOpenRecord] = useState(false);
+    const [listPopcorn, setListPopcorn] = useState([]);
 
-    // const getAdmin = async () => {
-    //     try {
-    //         const res = await usersApi.getAll();
-    //         console.log(res);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     getAdmin();
-    // }, []);
+    const getPopcorns = async () => {
+        try {
+            const res = await filmsApi.getPopcorns();
+            setListPopcorn(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const onGoBack = () => {
         if (isOpenRecord) {
@@ -53,17 +25,20 @@ export const Admin = () => {
         }
     };
 
+    useEffect(() => {
+        getPopcorns()
+    }, []);
+
     return (
         <>
             <MainSideBar />
             <NavBar />
             <div className="content-wrapper">
-                {/* Content Header (Page header) */}
                 <section className="content-header">
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h1>Admin</h1>
+                                <h1>Bỏng & nước</h1>
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
@@ -71,13 +46,12 @@ export const Admin = () => {
                                         <div>Home</div>
                                     </li>
                                     <li className="breadcrumb-item active">
-                                        Admin
+                                        Bỏng & nước
                                     </li>
                                 </ol>
                             </div>
                         </div>
                     </div>
-                    {/* /.container-fluid */}
                 </section>
                 {!isOpenRecord ? (
                     <>
@@ -97,25 +71,23 @@ export const Admin = () => {
                                         <div className="card">
                                             <div className="card-header">
                                                 <h3 className="card-title">
-                                                    Danh sách admin
+                                                    Danh sách combo bỏng nước
                                                 </h3>
                                             </div>
-                                            <AdminTable
-                                                usersData={data_users_fixed}
+                                            <PopcornTable
+                                                popcorns={listPopcorn}
                                             />
                                         </div>
                                     </div>
-                                    {/* /.col */}
                                 </div>
-                                {/* /.row */}
                             </div>
                         </section>
                     </>
                 ) : (
-                    <AdminRecord onGoBack={onGoBack} />
+                    <PopcornRecord onGoBack={onGoBack} getPopcorns={getPopcorns} />
                 )}
-                {/* /.content */}
             </div>
+            <ToastContainer />
         </>
     );
 };

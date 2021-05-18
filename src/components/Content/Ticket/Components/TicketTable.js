@@ -14,7 +14,8 @@ export const TicketTable = ({ usersData, onSelectItemData }) => {
                         <th>Phòng chiếu</th>
                         <th>Ngày</th>
                         <th>Giờ chiếu</th>
-                        {/* <th>Ghế</th> */}
+                        <th>Bỏng & nước</th>
+                        <th>Hình thức</th>
                         <th>Trạng thái</th>
                     </tr>
                 </thead>

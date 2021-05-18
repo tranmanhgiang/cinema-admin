@@ -51,7 +51,7 @@ export const Films = () => {
     const getCinemaByFilmId = async (id) => {
         try {
             const res = await filmsApi.getCinemaByFilmId({
-                date: "2021-04-05",
+                date: dayjs().format('YYYY-MM-DD'),
                 filmId: id,
             });
             setResTemp(res);
@@ -94,7 +94,7 @@ export const Films = () => {
         const seatSelected = await filmsApi.checkSeatSelected({
             theaterId: parseInt(cinemaSelected),
             filmId: film.id,
-            date: "2021-04-05",
+            date: dayjs().format('YYYY-MM-DD'),
             time: bookingTime,
         });
         const newSeatArr = [];
@@ -124,11 +124,12 @@ export const Films = () => {
     const handleBookTicket = async () => {
         const formBookTicket = {
             price: 75000 * seatSelected.length,
-            date: dayjs('04/05/2021').format('YYYY-MM-DD'),
+            date: dayjs().format('YYYY-MM-DD'),
             time: bookingTime,
             filmId: film.id,
             theaterId: cinemaSelected,
-            seat: seatSelected
+            seat: seatSelected,
+            popcornId: "0"
         }
         try {
             const res = await filmsApi.bookTicketDirectly(formBookTicket);

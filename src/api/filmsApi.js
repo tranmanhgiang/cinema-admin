@@ -19,6 +19,16 @@ const filmsApi = {
         return axiosLoginClient.post(url, params);
     },
 
+    addRoom: (params) => {
+        const url = `${cinemaUrl}create-room`;
+        return axiosLoginClient.post(url, params);
+    },
+
+    getRooms: (params) => {
+        const url = `${cinemaUrl}get-rooms`;
+        return axiosLoginClient.get(url, params);
+    },
+
     bookTicketDirectly: (params) => {
         const url =`${adminUrl}buy-tickets-directly`;
         return axiosLoginClient.post(url, params);
@@ -63,5 +73,46 @@ const filmsApi = {
         const url = `${adminUrl}get-orders-list`;
         return axiosLoginClient.get(url, params);
     },
+
+    getCoupons: (params) => {
+        const url = `${adminUrl}get-coupons`;
+        return axiosLoginClient.get(url, params);
+    },
+
+    addCoupon: (params) => {
+        const url = `${adminUrl}add-coupons`;
+        return axiosLoginClient.post(url, params);
+    },
+
+    editCoupon: (params) => {
+        const url = `${adminUrl}edit-coupon`;
+        return axiosLoginClient.post(url, params);
+    },
+
+    getScheduleEndDate: (params) => {
+        const url = `${adminUrl}get-schedule-end-date`;
+        return axiosLoginClient.get(url, params);
+    },
+
+    makeSchedule: (params) => {
+        const url = `${adminUrl}make-schedule`;
+        return axiosLoginClient.post(url, params);
+    },
+
+    getScheduleToday: (params) => {
+        const url = `${adminUrl}get-schedule-today`;
+        return axiosLoginClient.get(url, params);
+    },
+
+    getPopcorns: (params) => {
+        const url = `${cinemaUrl}get-popcorns`;
+        return axiosLoginClient.get(url, params);
+    },
+
+    addPopcorn: (params) => {
+        const url = `${cinemaUrl}add-popcorn`;
+        return axiosLoginClient.post(url, params);
+    },
+
 }
 export default filmsApi;

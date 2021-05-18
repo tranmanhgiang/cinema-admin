@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 
 export const FilmRecord = ({ setOpenRecord, onGoBack, getListFilms }) => {
     const inputFile = useRef(null);
-    
+
     const [state, setState] = useState({
         file: "",
         imagePreviewUrl: "",
@@ -75,8 +75,7 @@ export const FilmRecord = ({ setOpenRecord, onGoBack, getListFilms }) => {
         try {
             if (imageResponseUrl.length) {
                 const res = await filmsApi.createFilm(filmRecord);
-                console.log(filmRecord);
-                if (res.message === 'true') {
+                if (res.message === "true") {
                     toast.success("Tạo phim thành công");
                     onGoBack();
                     getListFilms();
@@ -88,6 +87,7 @@ export const FilmRecord = ({ setOpenRecord, onGoBack, getListFilms }) => {
             }
         } catch (error) {
             console.log(error);
+            toast.error("Bạn cần nhập đầy đủ thông tin của phim");
         }
     };
 
@@ -95,7 +95,10 @@ export const FilmRecord = ({ setOpenRecord, onGoBack, getListFilms }) => {
         <section className="content">
             <div className="container row user-record">
                 <div className="col-md-4 m-auto">
-                    <div onClick={onImageClick} style={{ width: "300px", height: "350px" }}>
+                    <div
+                        onClick={onImageClick}
+                        style={{ width: "300px", height: "350px" }}
+                    >
                         {$imagePreview}
                     </div>
                     <div>
@@ -105,14 +108,18 @@ export const FilmRecord = ({ setOpenRecord, onGoBack, getListFilms }) => {
                             onChange={handleImageChange}
                             type="file"
                         />
-                        <button
-                            style={{ marginTop: '20px' }}
-                            type="submit"
-                            className="btn btn-success mr-1"
-                            onClick={handleSubmit}
-                        >
-                            Đăng tải
-                        </button>
+                        {!imageResponseUrl.length ? (
+                            <button
+                                style={{ marginTop: "20px" }}
+                                type="submit"
+                                className="btn btn-success mr-1"
+                                onClick={handleSubmit}
+                            >
+                                Đăng tải
+                            </button>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </div>
                 <form className="col-md-8">
@@ -206,19 +213,6 @@ export const FilmRecord = ({ setOpenRecord, onGoBack, getListFilms }) => {
                             />
                         </div>
                     </div>
-                    {/* <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Ảnh</label>
-                        <div>
-                            <input
-                                type="file"
-                                placeholder="Thời lượng"
-                                onChange={(event) => {
-                                    // const value = event.target.value;
-                                    // setDataRecord({ ...dataRecord, phone: value });
-                                }}
-                            />
-                        </div>
-                    </div> */}
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">Mô tả</label>
                         <textarea
@@ -234,19 +228,6 @@ export const FilmRecord = ({ setOpenRecord, onGoBack, getListFilms }) => {
                                 });
                             }}
                         />
-                    </div>
-                    <div className="form-check">
-                        <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="exampleCheck1"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="exampleCheck1"
-                        >
-                            Check me out
-                        </label>
                     </div>
                     <button
                         type="submit"

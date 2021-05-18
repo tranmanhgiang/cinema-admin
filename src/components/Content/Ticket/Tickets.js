@@ -4,39 +4,6 @@ import { MainSideBar } from "../../MainSideBar/MainSideBar";
 import { NavBar } from "../../NavBar/NavBar";
 import filmApi from '../../../api/filmsApi';
 
-const data_users_fixed = [
-    {
-        firstName: "Ha",
-        lastName: "Nguyen",
-        email: "nguyenha993@gmail.com",
-        filmName: "phimso1",
-        name: "cinema1",
-        date: 1617210000000,
-        timeMilestones: 1617238800000,
-        seat: [1, 2, 3],
-    },
-    {
-        firstName: "Ha",
-        lastName: "Nguyen",
-        email: "nguyenha993@gmail.com",
-        filmName: "phimso1",
-        name: "cinema1",
-        date: 1617210000000,
-        timeMilestones: 1617238800000,
-        seat: [1, 2, 3],
-    },
-    {
-        firstName: "Ha",
-        lastName: "Nguyen",
-        email: "nguyenha993@gmail.com",
-        filmName: "phimso1",
-        name: "cinema1",
-        date: 1618419600000,
-        timeMilestones: 1617238800000,
-        seat: [1, 2, 3],
-    },
-];
-
 const userRecordDefault = {
     id: 0,
     firstName: "",
@@ -47,16 +14,7 @@ const userRecordDefault = {
 };
 
 export const Tickets = () => {
-    const [isOpenRecord, setIsOpenRecord] = useState(false);
-    const [userRecord, setUserRecord] = useState(userRecordDefault);
     const [ordersList, setOrdersList] = useState();
-
-    const onGoBack = () => {
-        setUserRecord(userRecordDefault);
-        if (isOpenRecord) {
-            setIsOpenRecord(false);
-        }
-    };
 
     const getOrdersList = async () => {
         try {
@@ -76,7 +34,6 @@ export const Tickets = () => {
             <MainSideBar />
             <NavBar />
             <div className="content-wrapper">
-                {/* Content Header (Page header) */}
                 <section className="content-header">
                     <div className="container-fluid">
                         <div className="row mb-2">
@@ -95,18 +52,8 @@ export const Tickets = () => {
                             </div>
                         </div>
                     </div>
-                    {/* /.container-fluid */}
                 </section>
                 <>
-                    <div className="ml-3 mb-2">
-                        <button
-                            type="button"
-                            class="btn btn-success"
-                            onClick={() => setIsOpenRecord(true)}
-                        >
-                            Thêm
-                        </button>
-                    </div>
                     <section className="content">
                         <div className="container-fluid">
                             <div className="row">
@@ -122,13 +69,10 @@ export const Tickets = () => {
                                         />
                                     </div>
                                 </div>
-                                {/* /.col */}
                             </div>
-                            {/* /.row */}
                         </div>
                     </section>
                 </>
-                {/* /.content */}
             </div>
         </>
     );
